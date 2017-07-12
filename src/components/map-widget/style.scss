@@ -1,0 +1,9 @@
+.mwc-map-widget {
+  height: 100%;
+}
+
+@media all and (max-width: 667px) {
+  .mwc-map__container {
+    height: 50vh;
+  }
+}
