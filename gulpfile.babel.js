@@ -23,6 +23,7 @@ const Tasks = Object.freeze({
   TEST_SERVER: 'test-server',
   TEST_STYLE:  'test-style',
   TEST_WATCH:  'test-watch',
+  TEST_MOCHA:  'test-mocha',
   TEST:        'test',
   WATCH:       'watch'
 });
@@ -56,10 +57,11 @@ const Paths = Object.freeze({
     './assets/styles/fonts/**/*.ttf'
   ],
   FONTS_DIST: './build/fonts/',
+  MOCHA_SRC: './node_modules/mocha/mocha.js',
   TEST_HTML: './test/index.html',
   TEST_DIR: './test',
   TEST_SCRIPTS: './test/**/**/*.spec.js',
-  TEST_STYLES: './test/style.scss',
+  TEST_STYLES: ['./test/style.scss', './node_modules/mocha/mocha.css'],
   TEST_SRC: './test/test.js',
   TEST_MAPS: './test/maps',
   TEST_STYLE_DIST: 'style.css',
@@ -205,7 +207,12 @@ gulp.task(Tasks.TEST_SERVER, function() {
     .pipe(server(LivereloadTestConfig));
 });
 
-gulp.task(Tasks.TEST_WATCH, function() {
+gulp.task(Tasks.TEST_MOCHA, function() {
+  return gulp.src(Paths.MOCHA_SRC)
+    .pipe(gulp.dest(Paths.TEST_DIR));
+});
+
+gulp.task(Tasks.TEST_WATCH, [ Tasks.TEST_BUILD ], function() {
   gulp.watch([
     Paths.SRC,
     Paths.SCRIPTS,
@@ -217,5 +224,5 @@ gulp.task(Tasks.TEST_WATCH, function() {
   ]);
 });
 
-gulp.task(Tasks.TEST, [ Tasks.TEST_WATCH, Tasks.TEST_SERVER ]);
+gulp.task(Tasks.TEST, [ Tasks.TEST_MOCHA, Tasks.TEST_WATCH, Tasks.TEST_SERVER ]);
 gulp.task(Tasks.RUN, [ Tasks.DEFAULT, Tasks.SERVER ]);

@@ -1,6 +1,5 @@
 import fetch from 'node-fetch';
-import * as GeoJSONDataset from 'cartodb-query.json';
-// import { GeoJSONDataset } from '/utils/geojson-dataset';
+import { GeoJSONDataset } from '/utils/geojson-dataset';
 
 export const CartoApiService = {
   user: null,

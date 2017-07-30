@@ -3,6 +3,7 @@ import '../test/unit/carto-api/service.spec';
 import '../test/unit/map-widget/component.spec';
 import '../test/unit/map-widget-editor/component.spec';
 import '../test/unit/dropdown-select/component.spec';
+import '../test/unit/colors-range/component.spec';
 import '../test/unit/svg-marker/util.spec';
 
 /* Integration */

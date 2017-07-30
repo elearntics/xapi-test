@@ -1,7 +1,7 @@
 import { MapWidget } from './src/components/map-widget/component';
 import { MapWidgetEditor } from './src/components/map-widget-editor/component';
 import { DropdownSelect } from './src/components/dropdown-select/component';
-import { WidgetRange } from './src/components/widget-range/component';
+import { ColorsRange } from './src/components/colors-range/component';
 import { CartoApiService } from './src/services/carto-api';
 import { EasterEgg } from './src/services/easter-egg';
 import { DEFAULT_STYLE } from './src/constants/map';
@@ -12,17 +12,19 @@ const WidgetBorderColor = Object.assign({}, MapWidgetEditor);
 const WidgetOpacity = Object.assign({}, MapWidgetEditor);
 const WidgetWeight = Object.assign({}, MapWidgetEditor);
 const WidgetRadius = Object.assign({}, MapWidgetEditor);
-const WidgetColorRange = Object.assign({}, WidgetRange);
+const WidgetColorRange = Object.assign({}, ColorsRange);
 
 const DropdownSelectProperty = Object.assign({}, DropdownSelect);
 const DropdownSelectShape = Object.assign({}, DropdownSelect);
 
 const MAIN_LAYER_ID = 'layer1';
+const LOAD_LOCAL_DATA = false;
 
-CartoApiService.initService('elenatorro', 'public.cartodb_query', true);
+CartoApiService.initService('elenatorro', 'public.cartodb_query', LOAD_LOCAL_DATA);
+
 MapWidget
   .init('mwc-map-widget')
-  .getGeoJSONLayer(MAIN_LAYER_ID, 'select *', '1000')
+  .getGeoJSONLayer(MAIN_LAYER_ID, 'select *', '500')
   .then(() => {
     WidgetBackgroundColor.init('mwc-marker-color', MapWidget, DEFAULT_STYLE.fillColor);
     WidgetBorderColor.init('mwc-marker-border-color', MapWidget, DEFAULT_STYLE.color);
@@ -33,10 +35,7 @@ MapWidget
 
     WidgetColorRange.init(
       'mwc-color-range',
-      MapWidget,
-      MapWidget.colorRangeValues,
-      MAIN_LAYER_ID,
-      _updateRangeColors);
+      MapWidget.colorRangeValues);
 
     DropdownSelectProperty.init(
       'mwc-dropdown-select-property',
@@ -57,10 +56,7 @@ MapWidget
     MapWidget.updateGeoJSONColorRange(MAIN_LAYER_ID, property);
   };
 
-  const _updateRangeColors = function(property) {
-    MapWidget.updateGeoJSONColorRange(MAIN_LAYER_ID);
-  };
-
+/* Yes, this is the tiny easter egg */
 
 window.showEmojis = function(emoji) {
   EasterEgg.showEmojis(MapWidget, emoji);

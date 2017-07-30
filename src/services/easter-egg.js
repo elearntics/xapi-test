@@ -4,6 +4,7 @@ export const EasterEgg = {
 
   showEmojis(leafletMap, emoji) {
     this.emojisVisible = true;
+    emoji = emoji || '😬';
     leafletMap._setEmojiMarkers(emoji);
   },
 
