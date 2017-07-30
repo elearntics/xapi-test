@@ -5,7 +5,7 @@
   "author": "elenatorro@gmail.com",
   "license": "MIT",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register ./test/**/**/*_spec.js"
+    "test": "mocha --compilers js:babel-core/register ./test/test.js"
   },
   "devDependencies": {
     "babel-plugin-module-resolver": "^2.7.1",
@@ -19,23 +19,18 @@
     "gulp-babel": "^6.1.2",
     "gulp-compile-handlebars": "^0.6.1",
     "gulp-concat": "^2.6.1",
-    "gulp-connect": "^5.0.0",
     "gulp-handlebars": "^4.0.0",
     "gulp-livereload": "^3.8.1",
+    "gulp-mocha": "^4.3.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
+    "gulp-server-livereload": "^1.9.2",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^2.1.2",
     "leaflet": "^1.1.0",
-    "leaflet-headless": "^0.2.5",
     "mocha": "^3.4.2",
-    "mocha-jsdom": "^1.1.0",
-    "nightwatch": "^0.9.16",
     "sinon": "^2.3.7",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
-  },
-  "dependencies": {
+    "sinon-chai": "^2.11.0",
     "node-fetch": "^1.7.1"
   }
 }

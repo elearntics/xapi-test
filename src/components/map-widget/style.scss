@@ -1,9 +1,44 @@
-.mwc-map-widget {
-  height: 100%;
+.mwc-map__container {
+  min-height: 50vh;
 }
 
-@media all and (max-width: 667px) {
+.mwc-map-widget {
+  height: 100%;
+  position: relative;
+}
+
+.mwc-emoji-marker {
+  font-size: 2em;
+}
+
+.animated {
+  animation-duration: 1s;
+}
+
+.animated.infinite {
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  from {
+    margin-top: 0;
+  }
+
+  50% {
+    margin-top: -.1em;
+  }
+
+  to {
+    margin-top: 0;
+  }
+}
+
+.shake {
+  animation-name: shake;
+}
+
+@media all and (max-width: $mwc-media-max-width) {
   .mwc-map__container {
-    height: 50vh;
+    height: 60vh;
   }
 }

@@ -1,32 +1,34 @@
-const gulp        = require('gulp');
-const handlebars  = require('gulp-compile-handlebars');
-const browserify  = require('browserify');
-const source      = require('vinyl-source-stream');
-const buffer      = require('vinyl-buffer');
-const uglify      = require('gulp-uglify');
-const sourcemaps  = require('gulp-sourcemaps');
-const livereload  = require('gulp-livereload');
-const connect     = require('gulp-connect');
-const rename      = require('gulp-rename');
-const sass        = require('gulp-sass');
-const concat      = require('gulp-concat');
-const PORT        = 1234;
-const ROOT        = './build';
+const gulp           = require('gulp');
+const handlebars     = require('gulp-compile-handlebars');
+const browserify     = require('browserify');
+const source         = require('vinyl-source-stream');
+const buffer         = require('vinyl-buffer');
+const uglify         = require('gulp-uglify');
+const sourcemaps     = require('gulp-sourcemaps');
+const rename         = require('gulp-rename');
+const sass           = require('gulp-sass');
+const concat         = require('gulp-concat');
+const server         = require('gulp-server-livereload');
 
 const Tasks = Object.freeze({
-  BUILD:   'build',
-  CONNECT: 'connect',
-  DEFAULT: 'default',
-  IMAGES:  'images',
-  FONTS:   'fonts',
-  SCRIPTS: 'scripts',
-  STYLES:  'styles',
-  WATCH:   'watch'
+  BUILD:       'build',
+  DEFAULT:     'default',
+  FONTS:       'fonts',
+  IMAGES:      'images',
+  RUN:         'run',
+  SCRIPTS:     'scripts',
+  SERVER:      'server',
+  STYLES:      'styles',
+  TEST_BUILD:  'test-build',
+  TEST_SERVER: 'test-server',
+  TEST_STYLE:  'test-style',
+  TEST_WATCH:  'test-watch',
+  TEST:        'test',
+  WATCH:       'watch'
 });
 
 const Paths = Object.freeze({
   SRC: './index.js',
-  SOURCE: './index.js',
   DIST: './build',
   DIST_MAIN: '.',
   MAPS: './maps',
@@ -53,7 +55,15 @@ const Paths = Object.freeze({
   FONTS: [
     './assets/styles/fonts/**/*.ttf'
   ],
-  FONTS_DIST: './build/fonts/'
+  FONTS_DIST: './build/fonts/',
+  TEST_HTML: './test/index.html',
+  TEST_DIR: './test',
+  TEST_SCRIPTS: './test/**/**/*.spec.js',
+  TEST_STYLES: './test/style.scss',
+  TEST_SRC: './test/test.js',
+  TEST_MAPS: './test/maps',
+  TEST_STYLE_DIST: 'style.css',
+  TEST_DIST: 'bundle.js'
 });
 
 const BabelConfig = Object.freeze({
@@ -63,13 +73,40 @@ const BabelConfig = Object.freeze({
   global: true
 });
 
+const BabelTestConfig = Object.freeze({
+  presets: ['es2015']
+});
+
 const BrowserifyConfig = Object.freeze({
   entries: Paths.SRC,
   debug: true
 });
 
+const BrowserifyTestConfig = Object.freeze({
+  entries: Paths.TEST_SRC,
+  debug: true
+});
+
 const Transforms = Object.freeze({
   BABELIFY: 'babelify'
+});
+
+const LivereloadConfig = Object.freeze({
+  clientConsole:    true,
+  directoryListing: false,
+  livereload:       true,
+  log:              'debug',
+  open:             true,
+  port:             1234
+});
+
+const LivereloadTestConfig = Object.freeze({
+  clientConsole:    true,
+  directoryListing: false,
+  livereload:       true,
+  log:              'debug',
+  open:             true,
+  port:             8888
 });
 
 gulp.task(Tasks.BUILD, function () {
@@ -88,15 +125,15 @@ gulp.task(Tasks.BUILD, function () {
 });
 
 gulp.task(Tasks.SCRIPTS, function () {
-    return browserify(BrowserifyConfig)
-      .transform(Transforms.BABELIFY, BabelConfig)
-      .bundle()
-      .pipe(source(Paths.SOURCE))
-      .pipe(buffer())
-      .pipe(sourcemaps.init())
-      .pipe(uglify())
-      .pipe(sourcemaps.write(Paths.MAPS))
-      .pipe(gulp.dest(Paths.DIST));
+  return browserify(BrowserifyConfig)
+    .transform(Transforms.BABELIFY, BabelConfig)
+    .bundle()
+    .pipe(source(Paths.SRC))
+    .pipe(buffer())
+    .pipe(sourcemaps.init())
+    .pipe(uglify())
+    .pipe(sourcemaps.write(Paths.MAPS))
+    .pipe(gulp.dest(Paths.DIST));
 });
 
 gulp.task(Tasks.STYLES, function() {
@@ -108,44 +145,77 @@ gulp.task(Tasks.STYLES, function() {
 
 gulp.task(Tasks.IMAGES, function() {
   return gulp.src(Paths.IMAGES)
-  .pipe(gulp.dest(Paths.IMAGES_DIST));
+    .pipe(gulp.dest(Paths.IMAGES_DIST));
 });
 
 gulp.task(Tasks.FONTS, function() {
   return gulp.src(Paths.FONTS)
-  .pipe(gulp.dest(Paths.FONTS_DIST));
+    .pipe(gulp.dest(Paths.FONTS_DIST));
+});
+
+gulp.task(Tasks.TEST_STYLE, function() {
+  return gulp.src(Paths.TEST_STYLES)
+  .pipe(sass())
+  .pipe(concat(Paths.TEST_STYLE_DIST))
+  .pipe(gulp.dest(Paths.TEST_DIR));
 });
 
 gulp.task(Tasks.WATCH, [ Tasks.BUILD ], function () {
-    livereload.listen();
-    gulp.watch(
-      [
-        Paths.SOURCE,
-        Paths.SCRIPTS,
-        Paths.STYLES,
-        Paths.PARTIALS,
-        Paths.MAIN_FILE
-      ],[
-        Tasks.BUILD,
-        Tasks.SCRIPTS,
-        Tasks.STYLES
-      ]
-    );
+  gulp.watch(
+    [
+      Paths.SRC,
+      Paths.SCRIPTS,
+      Paths.STYLES,
+      Paths.PARTIALS,
+      Paths.MAIN_FILE
+    ],[
+      Tasks.BUILD,
+      Tasks.SCRIPTS,
+      Tasks.STYLES
+    ]
+  );
 });
 
-gulp.task(Tasks.CONNECT, function() {
-  connect.server({
-    root: ROOT,
-    port: PORT
-  });
+gulp.task(Tasks.SERVER, [ Tasks.DEFAULT ], function() {
+  return gulp.src(Paths.DIST)
+    .pipe(server(LivereloadConfig));
 });
 
 gulp.task(Tasks.DEFAULT, [
-  Tasks.CONNECT,
-  Tasks.BUILD,
   Tasks.IMAGES,
   Tasks.FONTS,
   Tasks.SCRIPTS,
   Tasks.STYLES,
+  Tasks.BUILD,
   Tasks.WATCH
 ]);
+
+gulp.task(Tasks.TEST_BUILD, function () {
+  return browserify(BrowserifyTestConfig)
+    .transform(Transforms.BABELIFY, BabelTestConfig)
+    .bundle()
+    .pipe(source(Paths.TEST_SRC))
+    .pipe(buffer())
+    .pipe(rename(Paths.TEST_DIST))
+    .pipe(gulp.dest(Paths.TEST_DIR));
+});
+
+gulp.task(Tasks.TEST_SERVER, function() {
+  return gulp.src(Paths.TEST_DIR)
+    .pipe(server(LivereloadTestConfig));
+});
+
+gulp.task(Tasks.TEST_WATCH, function() {
+  gulp.watch([
+    Paths.SRC,
+    Paths.SCRIPTS,
+    Paths.MAIN_FILE,
+    Paths.TEST_SRC,
+    Paths.TEST_SCRIPTS
+  ],[
+    Tasks.TEST_BUILD
+  ]);
+});
+
+gulp.task(Tasks.TEST, [ Tasks.TEST_WATCH, Tasks.TEST_SERVER ]);
+gulp.task(Tasks.RUN, [ Tasks.DEFAULT, Tasks.SERVER ]);

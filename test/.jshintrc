@@ -28,6 +28,7 @@
   "predef": [
     "describe",
     "it",
+    "after",
     "before",
     "window",
     "L"

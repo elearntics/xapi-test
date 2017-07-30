@@ -2,26 +2,28 @@
   background-color: rgba(255, 255, 255, .2);
   border-radius: 50%;
   display: flex;
+  display:-webkit-flex;
   height: 2.5em;
   justify-content: center;
+  -webkit-justify-content: center;
   margin: 0 auto;
   position: relative;
   width: 2.5em;
 
   &:after {
     align-self: center;
+    -webkit-align-self: center;
     background-color: white;
     border-radius: 1em;
     content: "";
     display: block;
     height: .85em;
-    position: absolute;
     width: .85em;
   }
 }
 
 .mwc-nav {
-  height: 100%;
+  min-height: 100%;
 
   nav {
     box-sizing: border-box;
@@ -37,9 +39,10 @@
   }
 }
 
-@media all and (max-width: 660px) {
+@media all and (max-width: $mwc-media-max-width) {
   .mwc-container {
     flex-direction: column;
+    -webkit-flex-direction: column;
   }
 
   .mwc-nav {

@@ -5,5 +5,10 @@ body {
 
 .mwc-container {
   display: flex;
-  height: 100%;
+  display: -webkit-flex;
+  min-height: 100%;
+}
+
+.mwc-bdr-r-none {
+  border-right: transparent;
 }
