@@ -1,15 +1,15 @@
 export const EasterEgg = {
 
-  emojisVisible: false,
+  emojiVisible: false,
 
-  showEmojis(leafletMap, emoji) {
-    this.emojisVisible = true;
+  showEmoji(leafletMap, emoji) {
+    this.emojiVisible = true;
     emoji = emoji || '😬';
     leafletMap._setEmojiMarkers(emoji);
   },
 
-  hideEmojis(leafletMap) {
-    this.emojisVisible = false;
+  hideEmoji(leafletMap) {
+    this.emojiVisible = false;
     leafletMap._removeEmojiMarkers();
   }
 };

@@ -37,19 +37,13 @@ export const MapWidget = {
   },
 
   getGeoJSONLayer(layerId, query, limit) {
-    return new Promise((resolve, reject) => {
-      CartoApiService.getGeoJSON(query, limit)
-        .then((data) => {
-          this.data = data;
-          this._setGeoJSONMarkers(layerId);
-          resolve(data);
-        })
-        .catch((err) => {
-          reject(err);
-        });
+    return CartoApiService.getGeoJSON(query, limit)
+      .then((data) => {
+        this.data = data;
+        this._setGeoJSONMarkers(layerId);
+        return data;
     });
   },
-
 
   updateGeoJSONStyle(layerId, style) {
     let layer = this.layers[layerId];
@@ -58,18 +52,14 @@ export const MapWidget = {
       this.markerStyle = Object.assign(this.markerStyle, style);
     }
 
-    return new Promise((resolve, reject) => {
-      if (layer) {
-        layer.eachLayer((marker) => {
-          marker.setStyle(this.markerStyle);
-          marker.options.shape = style.shape || marker.options.shape;
-        });
+    if (layer) {
+      layer.eachLayer((marker) => {
+        marker.setStyle(this.markerStyle);
+        marker.options.shape = style.shape || marker.options.shape;
+      });
+    }
 
-        resolve(layer);
-      }
-
-      reject();
-    });
+    return layer;
   },
 
   updateGeoJSONColorRange(layerId, property, rangeValues) {
@@ -82,7 +72,7 @@ export const MapWidget = {
       this.activateColorRanges();
 
       layer.eachLayer((marker) => {
-        rangeColorPromises.push(this._updateRangeColorP(marker));
+        rangeColorPromises.push(this._updateRangeColor(marker));
       });
     }
 
@@ -176,7 +166,7 @@ export const MapWidget = {
       : markerProperty;
   },
 
-  _getRangeColorP(marker) {
+  _getRangeColor(marker) {
     const value = marker.feature.properties[this.colorRangeProperty];
 
     return new Promise((resolve, reject) => {
@@ -190,9 +180,9 @@ export const MapWidget = {
     });
   },
 
-  _updateRangeColorP(marker) {
+  _updateRangeColor(marker) {
     return new Promise((resolve, reject) => {
-      this._getRangeColorP(marker)
+      this._getRangeColor(marker)
         .then((color) => {
           marker.setStyle({
             color: this.markerStyle.color,

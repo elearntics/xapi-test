@@ -13,7 +13,7 @@ describe('Unit:map-widget-editor:component', function() {
   describe('MapWidgetEditor Component', function() {
 
     before(function() {
-      let mapWidgetEditorContainer$ = document.createElement('div');
+      const mapWidgetEditorContainer$ = document.createElement('div');
 
       mapWidgetEditorContainer$.innerHTML = `<input
         id="${MAP_WIDGET_EDITOR_ID}"

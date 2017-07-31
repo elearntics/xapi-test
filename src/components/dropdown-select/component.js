@@ -10,8 +10,7 @@ export const DropdownSelect = {
     this.isActive = false;
     this.selected = null;
 
-    this.dropdown$.addEventListener(
-      'click',
+    this.dropdown$.addEventListener('click',
       this.toggleActiveClass.bind(this),
       false);
 
@@ -26,17 +25,11 @@ export const DropdownSelect = {
     this.dropdown$.classList[toggle](activeClass);
   },
 
-  setData(dataList) {
-    if (dataList) {
-      let li$, button$;
-      for (let dataElement in dataList) {
-        li$ = document.createElement('li');
-        button$ = document.createElement('button');
-        button$.innerText = this.showValue ?  dataElement : dataList[dataElement];
-        button$.setAttribute(`data-${this.dropdownId}`, dataList[dataElement]);
-        button$.addEventListener('click', this._selectItem.bind(this), false);
-        li$.appendChild(button$);
-        this.dropdownList$.appendChild(li$);
+  setData(list) {
+    if (list) {
+      for (const element in list) {
+        const liButton$ = _createListButton.call(this, element, list);
+        this.dropdownList$.appendChild(liButton$);
       }
     }
   },
@@ -50,4 +43,17 @@ export const DropdownSelect = {
       this.callback.call(this, this.selected);
     }
   }
+};
+
+const _createListButton = function(element, list) {
+  const li$ = document.createElement('li');
+  const button$ = document.createElement('button');
+
+  li$.appendChild(button$);
+
+  button$.innerText = this.showValue ? element : list[element];
+  button$.setAttribute(`data-${this.dropdownId}`, list[element]);
+
+  button$.addEventListener('click', this._selectItem.bind(this), false);
+  return li$;
 };

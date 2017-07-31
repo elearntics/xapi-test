@@ -5,6 +5,7 @@ import { DropdownSelect } from '../../../src/components/dropdown-select/componen
 
 const DROPDOWN_ID = 'dropdown-select-id';
 const DropdownSelectTest = Object.assign({}, DropdownSelect);
+
 let dropdownSelect$, dropdownSelectList$, dropdownSelectTitle$, _callback;
 
 const DropdownData = {

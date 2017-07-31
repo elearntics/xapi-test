@@ -10,7 +10,7 @@ const sass           = require('gulp-sass');
 const concat         = require('gulp-concat');
 const server         = require('gulp-server-livereload');
 
-const Tasks = Object.freeze({
+const Tasks = {
   BUILD:       'build',
   DEFAULT:     'default',
   FONTS:       'fonts',
@@ -26,9 +26,9 @@ const Tasks = Object.freeze({
   TEST_MOCHA:  'test-mocha',
   TEST:        'test',
   WATCH:       'watch'
-});
+};
 
-const Paths = Object.freeze({
+const Paths = {
   SRC: './index.js',
   DIST: './build',
   DIST_MAIN: '.',
@@ -66,50 +66,50 @@ const Paths = Object.freeze({
   TEST_MAPS: './test/maps',
   TEST_STYLE_DIST: 'style.css',
   TEST_DIST: 'bundle.js'
-});
+};
 
-const BabelConfig = Object.freeze({
+const BabelConfig = {
   only: /^(?:.*\/node_modules\/(?:a|b)\/|(?!.*\/node_modules\/)).*$/,
   presets: ['es2015'],
   plugins: ['transform-object-rest-spread'],
   global: true
-});
+};
 
-const BabelTestConfig = Object.freeze({
+const BabelTestConfig = {
   presets: ['es2015']
-});
+};
 
-const BrowserifyConfig = Object.freeze({
+const BrowserifyConfig = {
   entries: Paths.SRC,
   debug: true
-});
+};
 
-const BrowserifyTestConfig = Object.freeze({
+const BrowserifyTestConfig = {
   entries: Paths.TEST_SRC,
   debug: true
-});
+};
 
-const Transforms = Object.freeze({
+const Transforms = {
   BABELIFY: 'babelify'
-});
+};
 
-const LivereloadConfig = Object.freeze({
+const LivereloadConfig = {
   clientConsole:    true,
   directoryListing: false,
   livereload:       true,
   log:              'debug',
   open:             true,
   port:             1234
-});
+};
 
-const LivereloadTestConfig = Object.freeze({
+const LivereloadTestConfig = {
   clientConsole:    true,
   directoryListing: false,
   livereload:       true,
   log:              'debug',
   open:             true,
   port:             8888
-});
+};
 
 gulp.task(Tasks.BUILD, function () {
   const data = {

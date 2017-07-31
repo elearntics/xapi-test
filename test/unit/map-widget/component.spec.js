@@ -56,13 +56,12 @@ describe('Unit:map-widget:component', function() {
       expect(MapWidget.colorRangeValues.length).to.be.ok;
     });
 
-    it('should be able to add a GeoJSON layer', function(done) {
+    it('should be able to add a GeoJSON layer', function() {
       CartoApiService.initService('user', 'dataset');
 
-      MapWidget.getGeoJSONLayer('layer1', 'select *', '100')
+      return MapWidget.getGeoJSONLayer('layer1', 'select *', '100')
         .then((data) => {
           expect(data).to.be.ok;
-          done();
         });
     });
 
@@ -71,7 +70,7 @@ describe('Unit:map-widget:component', function() {
       expect(MapWidget.propertyRanges.aMin).to.equal('100');
     });
 
-    it('should be able to change the GeoJSON marker style', function(done) {
+    it('should be able to change the GeoJSON marker style', function() {
       const NewStyle = {
         fillColor: 'blue',
         color: 'red',
@@ -82,21 +81,20 @@ describe('Unit:map-widget:component', function() {
         fill: true
       };
 
-      MapWidget.updateGeoJSONStyle('layer1', NewStyle)
-        .then(() => {
-          expect(MapWidget.markerStyle.fillColor).to.equal(NewStyle.fillColor);
-          expect(MapWidget.markerStyle.color).to.equal(NewStyle.color);
-          expect(MapWidget.markerStyle.shape).to.equal(NewStyle.shape);
-          expect(MapWidget.markerStyle.radius).to.equal(NewStyle.radius);
-          expect(MapWidget.markerStyle.fillOpacity).to.equal(NewStyle.fillOpacity);
-          expect(MapWidget.markerStyle.weight).to.equal(NewStyle.weight);
-          expect(MapWidget.markerStyle.fill).to.equal(NewStyle.fill);
-          done();
-        });
+      MapWidget.updateGeoJSONStyle('layer1', NewStyle);
+
+      expect(MapWidget.markerStyle.fillColor).to.equal(NewStyle.fillColor);
+      expect(MapWidget.markerStyle.color).to.equal(NewStyle.color);
+      expect(MapWidget.markerStyle.shape).to.equal(NewStyle.shape);
+      expect(MapWidget.markerStyle.radius).to.equal(NewStyle.radius);
+      expect(MapWidget.markerStyle.fillOpacity).to.equal(NewStyle.fillOpacity);
+      expect(MapWidget.markerStyle.weight).to.equal(NewStyle.weight);
+      expect(MapWidget.markerStyle.fill).to.equal(NewStyle.fill);
     });
 
-    it('should be able to activate color ranges for a given property if it is defined', function(done) {
+    it('should be able to activate color ranges for a given property if it is defined', function() {
       MapWidget.activateColorRanges('a');
+
       expect(MapWidget.colorRanges[0].color).to.equal(DEFAULT_COLOR_RANGES[0]);
       expect(MapWidget.colorRanges[0].value).to.equal(140);
       expect(MapWidget.colorRanges[1].color).to.equal(DEFAULT_COLOR_RANGES[1]);
@@ -107,10 +105,9 @@ describe('Unit:map-widget:component', function() {
       expect(MapWidget.colorRanges[3].value).to.equal(260);
       expect(MapWidget.colorRanges[4].color).to.equal(DEFAULT_COLOR_RANGES[4]);
       expect(MapWidget.colorRanges[4].value).to.equal(300);
-      done();
     });
 
-    it('should be able to update color ranges for a given property and layer if it is defined', function(done) {
+    it('should be able to update color ranges for a given property and layer if it is defined', function() {
       const NEW_COLOR_RANGES = [
         '#000000',
         '#000001',
@@ -119,22 +116,19 @@ describe('Unit:map-widget:component', function() {
         '#000101'
       ];
 
-      MapWidget.updateGeoJSONColorRange('layer1', 'b', NEW_COLOR_RANGES)
-        .then(() => {
-          expect(MapWidget.propertyRanges.bMax).to.equal('500');
-          expect(MapWidget.propertyRanges.bMin).to.equal('200');
-          expect(MapWidget.colorRanges[0].color).to.equal(NEW_COLOR_RANGES[0]);
-          expect(MapWidget.colorRanges[0].value).to.equal(260);
-          expect(MapWidget.colorRanges[1].color).to.equal(NEW_COLOR_RANGES[1]);
-          expect(MapWidget.colorRanges[1].value).to.equal(320);
-          expect(MapWidget.colorRanges[2].color).to.equal(NEW_COLOR_RANGES[2]);
-          expect(MapWidget.colorRanges[2].value).to.equal(380);
-          expect(MapWidget.colorRanges[3].color).to.equal(NEW_COLOR_RANGES[3]);
-          expect(MapWidget.colorRanges[3].value).to.equal(440);
-          expect(MapWidget.colorRanges[4].color).to.equal(NEW_COLOR_RANGES[4]);
-          expect(MapWidget.colorRanges[4].value).to.equal(500);
-          done();
-        });
+      MapWidget.updateGeoJSONColorRange('layer1', 'b', NEW_COLOR_RANGES);
+      expect(MapWidget.propertyRanges.bMax).to.equal('500');
+      expect(MapWidget.propertyRanges.bMin).to.equal('200');
+      expect(MapWidget.colorRanges[0].color).to.equal(NEW_COLOR_RANGES[0]);
+      expect(MapWidget.colorRanges[0].value).to.equal(260);
+      expect(MapWidget.colorRanges[1].color).to.equal(NEW_COLOR_RANGES[1]);
+      expect(MapWidget.colorRanges[1].value).to.equal(320);
+      expect(MapWidget.colorRanges[2].color).to.equal(NEW_COLOR_RANGES[2]);
+      expect(MapWidget.colorRanges[2].value).to.equal(380);
+      expect(MapWidget.colorRanges[3].color).to.equal(NEW_COLOR_RANGES[3]);
+      expect(MapWidget.colorRanges[3].value).to.equal(440);
+      expect(MapWidget.colorRanges[4].color).to.equal(NEW_COLOR_RANGES[4]);
+      expect(MapWidget.colorRanges[4].value).to.equal(500);
     });
   });
 });

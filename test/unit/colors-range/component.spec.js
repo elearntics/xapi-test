@@ -33,7 +33,6 @@ describe('Unit:colors-range:component', function() {
       expect(ColorsRange.widget$).to.be.ok;
       expect(ColorsRange.widget$.children.length).to.be.equal(
         COLORS_RANGE.length);
-      expect(ColorsRange.rangeValues$).to.be.ok;
       expect(ColorsRange.rangeValues).to.be.equal(COLORS_RANGE);
 
       ColorsRange.widget$.childNodes.forEach((colorBox$, index) => {

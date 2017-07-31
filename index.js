@@ -24,7 +24,7 @@ CartoApiService.initService('elenatorro', 'public.cartodb_query', LOAD_LOCAL_DAT
 
 MapWidget
   .init('mwc-map-widget')
-  .getGeoJSONLayer(MAIN_LAYER_ID, 'select *', '500')
+  .getGeoJSONLayer(MAIN_LAYER_ID, 'select *', '5000')
   .then(() => {
     WidgetBackgroundColor.init('mwc-marker-color', MapWidget, DEFAULT_STYLE.fillColor);
     WidgetBorderColor.init('mwc-marker-border-color', MapWidget, DEFAULT_STYLE.color);
@@ -49,7 +49,7 @@ MapWidget
   });
 
   const _updateShape = function(shape) {
-    MapWidget.updateGeoJSONStyle(MAIN_LAYER_ID, {shape});
+    MapWidget.updateGeoJSONStyle(MAIN_LAYER_ID, { shape });
   };
 
   const _updateColorRange = function(property) {
@@ -58,10 +58,10 @@ MapWidget
 
 /* Yes, this is the tiny easter egg */
 
-window.showEmojis = function(emoji) {
-  EasterEgg.showEmojis(MapWidget, emoji);
+window.showEmoji = function(emoji) {
+  EasterEgg.showEmoji(MapWidget, emoji);
 };
 
-window.hideEmojis = function(emoji) {
-  EasterEgg.hideEmojis(MapWidget);
+window.hideEmoji = function(emoji) {
+  EasterEgg.hideEmoji(MapWidget);
 };
