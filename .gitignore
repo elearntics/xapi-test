@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
-build
+docs
 src/constants/learning-locker-config.js
 test/bundle.js
 test/mocha.js

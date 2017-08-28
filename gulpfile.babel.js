@@ -32,7 +32,7 @@ const Tasks = {
 
 const Paths = {
   SRC: './index.js',
-  DIST: './build',
+  DIST: './docs',
   DIST_MAIN: '.',
   MAPS: './maps',
   SCRIPTS: './src/**/*.js',
@@ -54,18 +54,18 @@ const Paths = {
     'assets/styles/dependencies/*.css',
     'assets/styles/main.scss'
   ],
-  DIST_FILE: './build',
+  DIST_FILE: './docs',
   AUDIO: './assets/audio/*.mp3',
-  AUDIO_DIST: './build/assets/audio',
+  AUDIO_DIST: './docs/assets/audio',
   DEPENDENCIES: './assets/dependencies/*',
-  DEPENDENCIES_DIST: './build/assets/dependencies',
+  DEPENDENCIES_DIST: './docs/assets/dependencies',
   IMAGES: [
     'node_modules/leaflet/dist/images/*.png',
     './assets/images/*.png'
   ],
-  IMAGES_DIST: './build/assets/images',
+  IMAGES_DIST: './docs/assets/images',
   FONTS: ['./assets/styles/fonts/**/*.ttf'],
-  FONTS_DIST: './build/fonts/',
+  FONTS_DIST: './docs/fonts/',
   MOCHA_SRC: './node_modules/mocha/mocha.js',
   TEST_HTML: './test/index.html',
   TEST_DIR: './test',
