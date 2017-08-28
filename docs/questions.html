@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Elaio Test</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+
+<body id="eao-page">
+  <header class="pk-grid pk-bg-blue400">
+    <nav class="pk-row pk-nav pk-nav-fxd pk-bg-blue400">
+      <ul class="pk-nav-link-list pk-nav-link-list-r pk-col pk-col-row pk-6">
+        <li><a id="eao-init" class="pk-nav-link pk-bg-hv-orange700" href="/">Inicio</a></li>
+        <li><a class="pk-nav-link pk-bg-hv-orange700" href="/about.html">El Proyecto</a></li>
+        <li><a class="pk-nav-link pk-bg-hv-orange700" href="#">Contacto</a></li>
+        <li><a class="pk-nav-link pk-bg-hv-orange700" href="http://portal.uned.es/">UNED</a></li>
+      </ul>
+    </nav>
+
+    <section class="pk-grid pk-pdd-l-all pk-f-white">
+      <section class="pk-col pk-mg-l-tb">
+        <h1 class="eao-title">Cuestionario</h1>
+      </section>
+    </section>
+  </header>
+
+  <section class="pk-grid">
+    <section class="pk-row pk-pdd-l-tb">
+      <section class="pk-col pk-4">
+        <section class="pk-pdd-l-all eao-question-data">
+          <p>Aciertos: <span id="eao-questions-bees-assertions">0</span></p>
+          <p>Número de intentos: <span id="eao-questions-bees-submissions">0</span></p>
+          <p id="eao-questions-bees-info"></p>
+        </section>
+        
+        <form id="eao-questions-bees" name="eao-questions-bees" class="eao-questions">
+          <ol id="eao-questions-bees-list"></ol>
+          <button id="eao-questions-bees-button" type="submit" name="button" class="pk-btn pk-btn-m pk-mg-m-all pk-bg-blue500 pk-f-white">Enviar</button>
+        </form>
+      </section>
+    </section>
+  </section>
+
+  <footer class="pk-grid pk-pdd-m-all pk-f-blue600">
+    <section class="pk-col-row">
+      <p>Creado por <a href="https://twitter.com/eletorro">Elena Torr&oacute;</a> para el Máster en Lenguajes y Sistemas Informáticos de la UNED. 2017.</p>
+    </section>
+  </footer>
+</body>
+
+<script type="text/javascript" src="/assets/dependencies/youtube-iframe-api.js"></script>
+<script type="text/javascript" src="/assets/dependencies/xapi-events.js"></script>
+<script type="text/javascript" src="index.js"></script>
+
+</html>
