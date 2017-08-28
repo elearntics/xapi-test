@@ -1,0 +1,18 @@
+.eao-user-email__info {
+  position: relative;
+  text-indent: 1.5em;
+
+  &.eao-info__saved:before {
+    content: '✅';
+    position: absolute;
+    left: -1.5em;
+    line-height: 1.5;
+  }
+
+  &.eao-info__not-saved:before {
+    content: '❗';
+    position: absolute;
+    left: -1.5em;
+    line-height: 1.5;
+  }
+}

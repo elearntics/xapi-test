@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 build
-cartodb-query.json
+src/constants/learning-locker-config.js
 test/bundle.js
 test/mocha.js
 test/style.css

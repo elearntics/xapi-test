@@ -11,21 +11,23 @@ const concat         = require('gulp-concat');
 const server         = require('gulp-server-livereload');
 
 const Tasks = {
-  BUILD:       'build',
-  DEFAULT:     'default',
-  FONTS:       'fonts',
-  IMAGES:      'images',
-  RUN:         'run',
-  SCRIPTS:     'scripts',
-  SERVER:      'server',
-  STYLES:      'styles',
-  TEST_BUILD:  'test-build',
-  TEST_SERVER: 'test-server',
-  TEST_STYLE:  'test-style',
-  TEST_WATCH:  'test-watch',
-  TEST_MOCHA:  'test-mocha',
-  TEST:        'test',
-  WATCH:       'watch'
+  AUDIO:        'audio',
+  BUILD:        'build',
+  DEFAULT:      'default',
+  DEPENDENCIES: 'dependencies',
+  FONTS:        'fonts',
+  IMAGES:       'images',
+  RUN:          'run',
+  SCRIPTS:      'scripts',
+  SERVER:       'server',
+  STYLES:       'styles',
+  TEST_BUILD:   'test-build',
+  TEST_MOCHA:   'test-mocha',
+  TEST_SERVER:  'test-server',
+  TEST_STYLE:   'test-style',
+  TEST_WATCH:   'test-watch',
+  TEST:         'test',
+  WATCH:        'watch'
 };
 
 const Paths = {
@@ -42,20 +44,27 @@ const Paths = {
   STYLE_DIST: 'assets/style.css',
   PARTIALS_DIR: './src/components',
   PARTIALS: './src/components/**/*.hbs',
-  MAIN_FILE: 'index.hbs',
+  MAIN_FILE: [
+    'index.hbs',
+    'about.hbs',
+    'questions.hbs'
+  ],
   STYLE_FILES: [
     './node_modules/leaflet/dist/*.css',
     'assets/styles/dependencies/*.css',
     'assets/styles/main.scss'
   ],
-  DIST_FILE: './build/index.html',
+  DIST_FILE: './build',
+  AUDIO: './assets/audio/*.mp3',
+  AUDIO_DIST: './build/assets/audio',
+  DEPENDENCIES: './assets/dependencies/*',
+  DEPENDENCIES_DIST: './build/assets/dependencies',
   IMAGES: [
-    'node_modules/leaflet/dist/images/*.png'
+    'node_modules/leaflet/dist/images/*.png',
+    './assets/images/*.png'
   ],
   IMAGES_DIST: './build/assets/images',
-  FONTS: [
-    './assets/styles/fonts/**/*.ttf'
-  ],
+  FONTS: ['./assets/styles/fonts/**/*.ttf'],
   FONTS_DIST: './build/fonts/',
   MOCHA_SRC: './node_modules/mocha/mocha.js',
   TEST_HTML: './test/index.html',
@@ -113,7 +122,7 @@ const LivereloadTestConfig = {
 
 gulp.task(Tasks.BUILD, function () {
   const data = {
-    title: 'Carto Map Widget'
+    title: 'E-Learning Test'
   };
 
   const options = {
@@ -122,8 +131,10 @@ gulp.task(Tasks.BUILD, function () {
 
   return gulp.src(Paths.MAIN_FILE)
     .pipe(handlebars(data, options))
-    .pipe(rename(Paths.DIST_FILE))
-    .pipe(gulp.dest(Paths.DIST_MAIN));
+    .pipe(rename(function(path) {
+       path.extname = '.html';
+    }))
+    .pipe(gulp.dest(Paths.DIST));
 });
 
 gulp.task(Tasks.SCRIPTS, function () {
@@ -148,6 +159,16 @@ gulp.task(Tasks.STYLES, function() {
 gulp.task(Tasks.IMAGES, function() {
   return gulp.src(Paths.IMAGES)
     .pipe(gulp.dest(Paths.IMAGES_DIST));
+});
+
+gulp.task(Tasks.AUDIO, function() {
+  return gulp.src(Paths.AUDIO)
+    .pipe(gulp.dest(Paths.AUDIO_DIST));
+});
+
+gulp.task(Tasks.DEPENDENCIES, function() {
+  return gulp.src(Paths.DEPENDENCIES)
+    .pipe(gulp.dest(Paths.DEPENDENCIES_DIST));
 });
 
 gulp.task(Tasks.FONTS, function() {
@@ -184,6 +205,8 @@ gulp.task(Tasks.SERVER, [ Tasks.DEFAULT ], function() {
 });
 
 gulp.task(Tasks.DEFAULT, [
+  Tasks.AUDIO,
+  Tasks.DEPENDENCIES,
   Tasks.IMAGES,
   Tasks.FONTS,
   Tasks.SCRIPTS,

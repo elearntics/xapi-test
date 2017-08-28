@@ -1,8 +1,18 @@
 @import 'variables';
 @import 'global';
 
-@import './src/components/map-widget/style';
-@import './src/components/nav-bar/style';
-@import './src/components/map-widget-editor/style';
-@import './src/components/colors-range/style';
-@import './src/components/dropdown-select/style';
+@import './src/components/tabs-container/style';
+@import './src/components/content-text/style';
+@import './src/components/content-video/style';
+@import './src/components/content-audio/style';
+@import './src/components/questions/style';
+@import './src/components/user-email/style';
+
+.eao-content {
+  &.eao-content--hidden {
+    display: none;
+  }
+  &.eao-content--visible {
+    display: block;
+  }
+}

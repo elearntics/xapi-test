@@ -1,0 +1,31 @@
+.eao-tabs-container {
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  overflow: hidden;
+}
+
+.eao-tabs-container__tab-button {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  float: left;
+  outline: none;
+  padding: 1em;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #ddd;
+  }
+
+  &.active {
+    background-color: #ccc;
+  }
+}
+
+.eao-tabs-container__contents {
+  display: none;
+
+  &.visible {
+    display: block;
+  }
+}

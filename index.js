@@ -1,67 +1,45 @@
-import { MapWidget } from './src/components/map-widget/component';
-import { MapWidgetEditor } from './src/components/map-widget-editor/component';
-import { DropdownSelect } from './src/components/dropdown-select/component';
-import { ColorsRange } from './src/components/colors-range/component';
-import { CartoApiService } from './src/services/carto-api';
-import { EasterEgg } from './src/services/easter-egg';
-import { DEFAULT_STYLE } from './src/constants/map';
-import { MarkerShapes } from './src/constants/marker-shapes';
+import { TabsContainer } from './src/components/tabs-container/component';
+import { ContentText } from './src/components/content-text/component';
+import { ContentVideo } from './src/components/content-video/component';
+import { Questions } from './src/components/questions/component';
+import { UserEmail } from './src/components/user-email/component';
+import { UserNotes } from './src/components/user-notes/component';
+import { xAPIEventsService } from './src/services/xapi-events';
+import { QUESTIONS_BEES } from './src/constants/questions-bees';
+import Cookies from 'js-cookie';
 
-const WidgetBackgroundColor = Object.assign({}, MapWidgetEditor);
-const WidgetBorderColor = Object.assign({}, MapWidgetEditor);
-const WidgetOpacity = Object.assign({}, MapWidgetEditor);
-const WidgetWeight = Object.assign({}, MapWidgetEditor);
-const WidgetRadius = Object.assign({}, MapWidgetEditor);
-const WidgetColorRange = Object.assign({}, ColorsRange);
+const WidgetTabsContent = Object.assign({}, TabsContainer);
+const WidgetContentText = Object.assign({}, ContentText);
+const WidgetContentTextImages = Object.assign({}, ContentText);
+const WidgetContentVideo = Object.assign({}, ContentVideo);
+const WidgetQuestionsBees = Object.assign({}, Questions);
+const WidgetUserEmail = Object.assign({}, UserEmail);
+const WidgetUserNotes = Object.assign({}, UserNotes);
+const userEmail = Cookies.get('elaio-email');
 
-const DropdownSelectProperty = Object.assign({}, DropdownSelect);
-const DropdownSelectShape = Object.assign({}, DropdownSelect);
+const BEES_VIDEO_ID = 'GqA42M4RtxE';
+const CONTENTS = [{
+    name: 'audio',
+    content: 'audio'
+  },{
+    name: 'text',
+    content: 'texto'
+  },{
+    name: 'images',
+    content: 'texto con imágenes'
+  },{
+    name: 'video',
+    content: 'video'
+}];
 
-const MAIN_LAYER_ID = 'layer1';
-const LOAD_LOCAL_DATA = false;
+WidgetTabsContent.initialize('eao-tabs-content', CONTENTS);
+WidgetContentText.initialize('eao-tabs-content-text-widget');
+WidgetContentTextImages.initialize('eao-tabs-content-images-widget');
+WidgetContentVideo.initialize('eao-content-video', BEES_VIDEO_ID);
+WidgetQuestionsBees.initialize('eao-questions-bees', QUESTIONS_BEES);
+WidgetUserEmail.initialize('eao-user-email', 'eao-content');
+WidgetUserNotes.initialize('eao-user-notes');
 
-CartoApiService.initService('elenatorro', 'public.cartodb_query', LOAD_LOCAL_DATA);
-
-MapWidget
-  .init('mwc-map-widget')
-  .getGeoJSONLayer(MAIN_LAYER_ID, 'select *', '5000')
-  .then(() => {
-    WidgetBackgroundColor.init('mwc-marker-color', MapWidget, DEFAULT_STYLE.fillColor);
-    WidgetBorderColor.init('mwc-marker-border-color', MapWidget, DEFAULT_STYLE.color);
-    WidgetOpacity.init('mwc-marker-opacity', MapWidget, DEFAULT_STYLE.fillOpacity);
-    WidgetWeight.init('mwc-marker-weight', MapWidget, DEFAULT_STYLE.weight);
-    WidgetRadius.init('mwc-marker-radius', MapWidget, DEFAULT_STYLE.radius);
-    MapWidget.calcProperties(MAIN_LAYER_ID);
-
-    WidgetColorRange.init(
-      'mwc-color-range',
-      MapWidget.colorRangeValues);
-
-    DropdownSelectProperty.init(
-      'mwc-dropdown-select-property',
-      MapWidget.properties,
-      _updateColorRange);
-
-    DropdownSelectShape.init(
-      'mwc-dropdown-select-shape',
-      MarkerShapes,
-      _updateShape);
-  });
-
-  const _updateShape = function(shape) {
-    MapWidget.updateGeoJSONStyle(MAIN_LAYER_ID, { shape });
-  };
-
-  const _updateColorRange = function(property) {
-    MapWidget.updateGeoJSONColorRange(MAIN_LAYER_ID, property);
-  };
-
-/* Yes, this is the tiny easter egg */
-
-window.showEmoji = function(emoji) {
-  EasterEgg.showEmoji(MapWidget, emoji);
-};
-
-window.hideEmoji = function(emoji) {
-  EasterEgg.hideEmoji(MapWidget);
-};
+if (userEmail) {
+  xAPIEventsService.initialize(userEmail, 'elaio-test');
+}

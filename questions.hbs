@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+{{> head/template }}
+
+<body id="eao-page">
+  <header class="pk-grid pk-bg-blue400">
+    {{> nav-bar/template }}
+
+    <section class="pk-grid pk-pdd-l-all pk-f-white">
+      <section class="pk-col pk-mg-l-tb">
+        <h1 class="eao-title">Cuestionario</h1>
+      </section>
+    </section>
+  </header>
+
+  <section class="pk-grid">
+    <section class="pk-row pk-pdd-l-tb">
+      <section class="pk-col pk-4">
+        {{> questions/template data-id="eao-questions-bees"}}
+      </section>
+    </section>
+  </section>
+
+  {{> footer/template }}
+</body>
+
+<script type="text/javascript" src="/assets/dependencies/youtube-iframe-api.js"></script>
+<script type="text/javascript" src="/assets/dependencies/xapi-events.js"></script>
+<script type="text/javascript" src="index.js"></script>
+
+</html>

@@ -1,0 +1,42 @@
+.eao-question-data {
+  font-size: 1.3em;
+
+  p {
+    line-height: 1.2;
+  }
+}
+
+.eao-questions {
+  font-size: 1.2em;
+
+  li {
+    margin: 2em auto;
+    position: relative;
+  }
+}
+
+.eao-radio-input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.eao-question-right {
+  color: green;
+
+  &:before {
+    content: '✅';
+    position: absolute;
+    left: -1.5em;
+  }
+}
+
+.eao-question-wrong {
+  color: red;
+
+  &:before {
+    content: '❌';
+    position: absolute;
+    left: -1.5em;
+  }
+}

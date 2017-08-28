@@ -1,129 +1,61 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <title>Map Widget Carto</title>
-    <link rel="stylesheet" href="/assets/style.css">
-  </head>
+{{> head/template }}
 
-  <body>
-    <section class="mwc-container">
+<body id="eao-page">
+  <header class="pk-grid pk-bg-blue400">
+    {{> nav-bar/template }}
+    <section class="pk-grid pk-pdd-m-all pk-f-white">
+      <section class="pk-col pk-mg-l-tb">
+        <h1 class="eao-title">Instrucciones</h1>
+        <p class="pk-mg-m-tb">1. Introduzca su email para poder empezar.</p>
+        {{> user-email/template data-id="eao-user-email"}}
+        <p class="pk-mg-m-tb">2. Tome el tiempo necesario para aprender el siguiente contenido en inglés. Está en distintos formatos, por lo que puede utilizar los que más le gusten. Dispone de un cuadro de texto donde puede tomar notas a modo de esquema, y otro para anotar palabras. Cuando lo crea oportuno, responda a un cuestionario sobre dicho contenido.</p>
+        <p class="pk-pdd-m-tb"><a id="eao-questions-link" href="/questions.html" class="pk-bg-pink400 pk-pdd-s-all">Ya me he estudiado el contenido, empezar cuestionario.</a></p>
+      </section>
+    </section>
+  </header>
 
-      {{> nav-bar/template }}
+  <section id="eao-content" class="pk-grid eao-content eao-content--hidden">
+    <section class="pk-row">
+      <section class="pk-col pk-4 pk-pdd-m-all">
+        <h3>Contenido</h3>
 
-      <section class="pk-grid pk-w100">
+        {{> tabs-container/template data-id="eao-tabs-content"}}
 
-        <section class="pk-row">
+        <section id="eao-tabs-content-contents">
+          <div id="eao-tabs-content-audio" class="eao-tabs-container__contents">
+            {{> content-audio/template data-id="eao-content-audio"}}
+          </div>
 
-          <section class="pk-col pk-col-row pk-3 pk-pdd-l-all mwc-map-widget-editor__container">
+          <div id="eao-tabs-content-text" class="eao-tabs-container__contents">
+            {{> content-text/template data-id="eao-content-text"}}
+          </div>
 
-            <section class="pk-col pk-6">
-              <h2>Style</h2>
-              <p>Change the visualization</p>
-            </section>
+          <div id="eao-tabs-content-images" class="eao-tabs-container__contents">
+            {{> content-text/template data-id="eao-content-images" show-images="true"}}
+          </div>
 
-            <section class="pk-col pk-6">
-
-              <form class="pk-form pk-inl pk-pdd-m-tb">
-
-                <section class="pk-form-group-inl">
-                  <label class="pk-lbl pk-inl pk-w20">FILTER BY</label>
-                  {{> dropdown-select/template
-                    class="pk-input pk-inl pk-w80 pk-bdr-grey400"
-                    data-id="mwc-dropdown-select-property"
-                    data-show-value="true"
-                    data-title="Map Properties"
-                  }}
-                </section>
-
-                <section class="pk-form-group-inl">
-                  <label class="pk-lbl pk-inl pk-w20">COLOR RANGE <small>(- to +)</small></label>
-                  {{> colors-range/template
-                      data-id="mwc-color-range"}}
-                </section>
-
-                <section class="pk-form-group-inl">
-                  <label class="pk-lbl pk-inl pk-w20">FILL</label>
-                  {{> map-widget-editor/template
-                      class="pk-input pk-inl pk-w20 pk-bdr-grey400 mwc-bdr-r-none"
-                      data-id="mwc-marker-opacity"
-                      data-layer="layer1"
-                      data-style-property="fillOpacity"
-                      data-type="number"
-                      data-min="0"
-                      data-max="1"
-                      data-step="0.1"
-                      data-name="mwc-marker-opacity"
-                  }}
-                  {{> map-widget-editor/template
-                      class="pk-input pk-inl pk-w60 pk-bdr-grey400 mwc-map-widget-editor--color"
-                      data-id="mwc-marker-color"
-                      data-layer="layer1"
-                      data-style-property="fillColor"
-                  }}
-                </section>
-
-                <section class="pk-form-group-inl">
-                  <label class="pk-lbl pk-inl pk-w20">STROKE</label>
-                  {{> map-widget-editor/template
-                      class="pk-input pk-inl pk-w20 pk-bdr-grey400 mwc-bdr-r-none"
-                      data-id="mwc-marker-weight"
-                      data-layer="layer1"
-                      data-style-property="weight"
-                      data-type="number"
-                      data-min="0"
-                      data-step="1"
-                  }}
-                  {{> map-widget-editor/template
-                      class="pk-input pk-inl pk-w60 pk-bdr-grey400 mwc-map-widget-editor--color"
-                      data-id="mwc-marker-border-color"
-                      data-layer="layer1"
-                      data-style-property="color"
-                  }}
-                </section>
-
-                <section class="pk-form-group-inl">
-                  <label class="pk-lbl pk-inl pk-w20">SHAPE</label>
-                  {{> dropdown-select/template
-                    class="pk-input pk-inl pk-w80 pk-bdr-grey400"
-                    data-id="mwc-dropdown-select-shape"
-                    data-show-value="true"
-                    data-title="Select Shape"
-                  }}
-                </section>
-
-                <section class="pk-form-group-inl">
-                  <label class="pk-lbl pk-inl pk-w20">SIZE</label>
-                  {{> map-widget-editor/template
-                      class="pk-input pk-inl pk-w80 pk-bdr-grey400"
-                      data-id="mwc-marker-radius"
-                      data-layer="layer1"
-                      data-style-property="radius"
-                      data-type="number"
-                      data-min="0"
-                      data-step="1"
-                  }}
-                </section>
-
-              </form>
-
-            </section>
-
-          </section>
-
-          <section class="pk-col pk-3 mwc-map__container">
-            {{> map-widget/template }}
-          </section>
-
+          <div id="eao-tabs-content-video" class="eao-tabs-container__contents">
+            {{> content-video/template data-id="eao-content-video"}}
+          </div>
         </section>
 
       </section>
 
+      <section class="pk-col pk-2 pk-pdd-m-all">
+        {{> user-notes/template data-id="eao-user-notes"}}
+      </section>
+
     </section>
+  </section>
 
-  </body>
+  {{> footer/template }}
+</body>
 
-  <script type="text/javascript" src="index.js"></script>
+<script type="text/javascript" src="/assets/dependencies/youtube-iframe-api.js"></script>
+<script type="text/javascript" src="/assets/dependencies/xapi-events.js"></script>
+<script type="text/javascript" src="index.js"></script>
+
 </html>

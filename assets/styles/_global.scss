@@ -3,12 +3,14 @@ body {
   height: 100%;
 }
 
-.mwc-container {
-  display: flex;
-  display: -webkit-flex;
-  min-height: 100%;
+.eao-bdr-r-none {
+  border-right: transparent;
 }
 
-.mwc-bdr-r-none {
-  border-right: transparent;
+.eao-title {
+  font-size: 2em;
+}
+
+.eao-notes {
+  min-height: 200px;
 }

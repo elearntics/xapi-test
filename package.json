@@ -1,7 +1,7 @@
 {
-  "name": "map-widget-carto",
+  "name": "elaio-test",
   "version": "0.1.0",
-  "description": "Carto Front End Test",
+  "description": "Elaio Test",
   "author": "elenatorro@gmail.com",
   "license": "MIT",
   "scripts": {
@@ -27,12 +27,13 @@
     "gulp-server-livereload": "^1.9.2",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^2.1.2",
-    "leaflet": "^1.1.0",
+    "js-cookie": "^2.1.4",
     "mocha": "^3.4.2",
     "node-fetch": "^1.7.1",
     "sinon": "^2.3.7",
     "sinon-chai": "^2.11.0",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "xAPI-javascript-events": "https://github.com/elenatorro/xAPI-javascript-events/tarball/master"
   }
 }
