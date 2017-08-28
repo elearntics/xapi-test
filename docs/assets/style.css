@@ -6672,6 +6672,9 @@ body {
 .eao-notes {
   min-height: 200px; }
 
+.eao-about p {
+  margin: 1em 0; }
+
 .eao-tabs-container {
   background-color: #f1f1f1;
   border: 1px solid #ccc;
