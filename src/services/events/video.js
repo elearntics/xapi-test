@@ -1,11 +1,11 @@
-import { DefaultStatement } from '../../constants/default-statement';
-import { VideoEvents } from '../../constants/events/video';
-import { LearningLockerConfig } from '../../constants/learning-locker-config';
-import { InteractionType } from '../../constants/interaction-types';
-import { xAPIDataService } from '../xapi-data';
+import {DefaultStatement} from '../../constants/default-statement';
+import {VideoEvents} from '../../constants/events/video';
+import {LearningLockerConfig} from '../../constants/learning-locker-config';
+import {InteractionType} from '../../constants/interaction-types';
+import {xAPIDataService} from '../xapi-data';
 
 const _changeVideo = function(event, xAPIEvent) {
-  const statement = Object.assign({}, xAPIEvent.statement, {
+  const statement = Object.assign(DefaultStatement.get(), xAPIEvent.statement, {
     object: {
       id: `${LearningLockerConfig.OBJECTS}/interactions/#content-video`,
       definition: {
@@ -31,38 +31,44 @@ export const VideoEventsService = Object.freeze({
       elementSelectors: ['#eao-content-video'],
       isValid: false,
       status: 'OFF',
-      statement: Object.assign(DefaultStatement.get(), {
+      statement: {
         verb: {
           id: 'https://w3id.org/xapi/adb/verbs/played',
-          display: {'en-US': 'played'}
+          display: {
+            'en-US': 'played'
+          }
         }
-      })
-    },{
+      }
+    }, {
       id: 'pause-video',
       callback: _changeVideo,
       name: VideoEvents.PAUSE,
       elementSelectors: ['#eao-content-video'],
       isValid: false,
       status: 'OFF',
-      statement: Object.assign(DefaultStatement.get(), {
+      statement: {
         verb: {
           id: 'https://w3id.org/xapi/adb/verbs/paused',
-          display: {'en-US': 'paused'}
+          display: {
+            'en-US': 'paused'
+          }
         }
-      })
-    },{
+      }
+    }, {
       id: 'end-video',
       callback: _changeVideo,
       name: VideoEvents.END,
       elementSelectors: ['#eao-content-video'],
       isValid: false,
       status: 'OFF',
-      statement: Object.assign(DefaultStatement.get(), {
+      statement: {
         verb: {
           id: 'https://w3id.org/xapi/adb/verbs/ended',
-          display: {'en-US': 'ended'}
+          display: {
+            'en-US': 'ended'
+          }
         }
-      })
+      }
     }
   ]
 });

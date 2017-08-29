@@ -14,7 +14,7 @@ const _selectOption = function(event, xAPIEvent) {
   const success = CORRECT === NUM_QUESTIONS;
   const completion = ANSWERED === NUM_QUESTIONS;
 
-  const statement = Object.assign({}, xAPIEvent.statement, {
+  const statement = Object.assign(DefaultStatement.get(), xAPIEvent.statement, {
     object: {
       id: `${LearningLockerConfig.OBJECTS}/interactions/#answer`,
       definition: {
@@ -41,12 +41,12 @@ export const QuestionsEventsService = Object.freeze({
       elementSelectors: ['.eao-form-input'],
       isValid: false,
       status: 'OFF',
-      statement: Object.assign(DefaultStatement.get(), {
+      statement: {
         verb: {
           id: 'http://adlnet.gov/expapi/verbs/answered',
           display: {'en-US': 'answered'}
         }
-      })
+      }
     },{
       id: 'submit-questions',
       callback: _selectOption,
@@ -54,12 +54,12 @@ export const QuestionsEventsService = Object.freeze({
       elementSelectors: ['#eao-questions-bees'],
       isValid: false,
       status: 'OFF',
-      statement: Object.assign(DefaultStatement.get(), {
+      statement: {
         verb: {
           id: 'http://adlnet.gov/expapi/verbs/attempted',
           display: {'en-US': 'attempted'}
         }
-      })
+      }
     }
   ]
 });

@@ -1,9 +1,9 @@
-import { DefaultStatement } from '../../constants/default-statement';
-import { LearningLockerConfig } from '../../constants/learning-locker-config';
-import { xAPIDataService } from '../xapi-data';
+import {DefaultStatement} from '../../constants/default-statement';
+import {LearningLockerConfig} from '../../constants/learning-locker-config';
+import {xAPIDataService} from '../xapi-data';
 
 const _goToQuestions = function(event, xAPIEvent) {
-  const statement = Object.assign(xAPIEvent.statement, {
+  const statement = Object.assign(DefaultStatement.get(), xAPIEvent.statement, {
     object: {
       id: `${LearningLockerConfig.OBJECTS}/interactions/#questions-page`,
       definition: {
@@ -24,12 +24,14 @@ export const UserEventsService = Object.freeze({
       elementSelectors: ['#eao-questions-link'],
       isValid: false,
       status: 'OFF',
-      statement: Object.assign(DefaultStatement.get(), {
+      statement: {
         verb: {
           id: 'http://adlnet.gov/expapi/verbs/initialized',
-          display: {'en-US': 'initialized'}
+          display: {
+            'en-US': 'initialized'
+          }
         }
-      })
+      }
     }
   ]
 });

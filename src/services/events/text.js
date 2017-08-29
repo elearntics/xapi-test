@@ -1,18 +1,17 @@
-import { DefaultStatement } from '../../constants/default-statement';
-import { LearningLockerConfig } from '../../constants/learning-locker-config';
-import { InteractionType } from '../../constants/interaction-types';
-import { xAPIDataService } from '../xapi-data';
+import {DefaultStatement} from '../../constants/default-statement';
+import {LearningLockerConfig} from '../../constants/learning-locker-config';
+import {InteractionType} from '../../constants/interaction-types';
+import {xAPIDataService} from '../xapi-data';
 
 const _xapiEvents = xapiEvents.xapiEvents;
 
 const _selectText = function(event, xAPIEvent) {
-
-  const statement = Object.assign({}, xAPIEvent.statement, {
+  const statement = Object.assign(DefaultStatement.get(), xAPIEvent.statement, {
     object: {
       id: `${LearningLockerConfig.OBJECTS}/interactions/#content-text`,
       definition: {
         interactionType: InteractionType.OTHER,
-        type: 'http://risc-inc.com/annotator/activities/highlight',
+        type: 'http://risc-inc.com/annotator/activities/highlight'
       }
     },
     result: {
@@ -32,12 +31,14 @@ export const TextEventsService = Object.freeze({
       elementSelectors: ['.eao-content-text'],
       isValid: false,
       status: 'OFF',
-      statement: Object.assign(DefaultStatement.get(), {
+      statement: {
         verb: {
           id: 'https://w3id.org/xapi/adb/verbs/highlighted',
-          display: {'en-US': 'highlighted'}
+          display: {
+            'en-US': 'highlighted'
+          }
         }
-      })
+      }
     }
   ]
 });

@@ -22,12 +22,6 @@ export const DefaultStatement = {
         display: {
           'en-US': 'interaction'
         }
-      },
-
-      authority: {
-        objectType: 'Agent',
-        name: "Elena Torro",
-        mbox: "mailto:elenatorro@gmail.com"
       }
     };
   }
